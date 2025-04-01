@@ -430,8 +430,26 @@
           emailjs.sendForm('service_7tpog6h', 'template_qqw2p4c', this)
             .then(() => {
                 console.log('SUCCESS!');
+                // reset form
                 this.reset();
-                grecaptcha.reset();
+                // Reset the reCAPTCHA safely
+                if (typeof grecaptcha !== 'undefined' && grecaptcha && typeof grecaptcha.reset === 'function') {
+                    grecaptcha.reset();
+                } else {
+                    // If direct reset isn't available, try reloading the captcha
+                    const captchaContainer = document.querySelector('.g-recaptcha');
+                    if (captchaContainer) {
+                        // Remove and re-add the reCAPTCHA iframe
+                        const iframe = captchaContainer.querySelector('iframe');
+                        if (iframe) {
+                            const src = iframe.src;
+                            iframe.src = '';
+                            setTimeout(() => {
+                                iframe.src = src;
+                            }, 10);
+                        }
+                    }
+                }
             }, (error) => {
                 console.log('FAILED...', error);
             });
