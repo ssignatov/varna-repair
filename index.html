@@ -430,6 +430,8 @@
           emailjs.sendForm('service_7tpog6h', 'template_qqw2p4c', this)
             .then(() => {
                 console.log('SUCCESS!');
+                this.reset();
+                grecaptcha.reset();
             }, (error) => {
                 console.log('FAILED...', error);
             });
