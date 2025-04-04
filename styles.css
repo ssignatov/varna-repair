@@ -635,6 +635,7 @@
     .hero-image,
     .about-image {
       grid-row: 1;
+      width: 550px;
     }
     
     .services-grid {
